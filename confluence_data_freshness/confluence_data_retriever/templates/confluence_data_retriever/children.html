@@ -1,0 +1,21 @@
+{% extends 'confluence_data_retriever/base.html' %}
+{% block title %}Children Display{% endblock %}
+{% block content %}
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>#ID</th>
+            <th>Page</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for child in children_list %}
+        <tr>
+            <td><a target="_blank" href="https://loadsmart.atlassian.net/wiki/spaces/engineering/pages/{{ child.id }}">
+                    {{ child.id }}</a> </td>
+            <td>{{ child.title }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

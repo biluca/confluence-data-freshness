@@ -1,0 +1,19 @@
+{% extends 'confluence_data_retriever/base.html' %}
+{% load static %}
+{% block title %}Search Page{% endblock %}
+{% block content %}
+<form action="{% url 'confluence_data_retriever:search_action' %}" method="post">
+  {% csrf_token %}
+  <section>
+    <div class="container">
+      <img id="logo" width="200px" src="{% static 'assets/logo.png' %}" />
+      <div class="search">
+        <input id="hub_page_url" type="text" name="hub_page_url">
+      </div>
+      <div class="search_btn">
+        <input class="button" type="submit" name="submit" value="Submit" />
+      </div>
+    </div>
+  </section>
+</form>
+{% endblock %}
