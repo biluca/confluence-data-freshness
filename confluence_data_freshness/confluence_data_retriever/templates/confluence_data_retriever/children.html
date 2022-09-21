@@ -24,11 +24,17 @@
             <td>{{ page.page_title }}</td>
             <td>{{ page.create_user }}</td>
             <td>{{ page.last_updated_user }}</td>
-            <td >{{ page.days_from_last_update }}</td>
+            <td>{{ page.days_from_last_update }}</td>
             <td>{{ page.days_from_creation }}</td>
             <td>{{ page.create_date }}</td>
             <td>{{ page.last_updated_date }}</td>
-            <td>{{ page.labels }}</td>
+            <td>
+                {% for label in page.labels %}
+                    <div class="chip">
+                        {{ label }}
+                    </div>
+                {% endfor %}
+            </td>
         </tr>
         {% endfor %}
     </tbody>

@@ -27,10 +27,16 @@ class Extractor:
                 self.append_children_pages(child["id"], level)
 
         return
+    
+    def extract_labels(self, result_labels):
+        labels = []
+
+        for label in result_labels:
+            labels.append(label['label'])
+
+        return labels
 
     def extract_itens(self, item, level):
-        labels = item["metadata"]["labels"]["results"]
-        # check_label = self.skip_page_by_label(labels)
 
         docs = ConfluenceResponse(
             page_title=item["title"],
@@ -40,8 +46,7 @@ class Extractor:
             last_updated_user=item["history"]["createdBy"]["publicName"],
             page_id=item.get("id"),
             create_user=item["history"]["createdBy"]["publicName"],
-            #labels=check_label["list"],
-            labels=[],
+            labels=self.extract_labels(item["metadata"]["labels"]["results"]),
         )
         
         #I NEED TO IMPLEMENT THE SKIP LABELS LOGIC!

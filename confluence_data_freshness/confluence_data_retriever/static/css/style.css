@@ -35,6 +35,13 @@
     color: #009879;
 }
 
-.warning-value{
+.warning-value {
     background-color: #f0f !important;
+}
+
+.chip {
+    display: inline-block;
+    padding: 5px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
 }

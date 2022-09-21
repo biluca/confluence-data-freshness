@@ -33,18 +33,29 @@ class ConfluenceResponse:
         delta = end_date - start_date
         return delta
 
+    def categorize(self, days):
+        if days > 60:
+            self.labels.append("+60 Days")
+            return "#E08D79"
+        else:
+            return "#FFFAE2"
+
     def create_dict(self):
+
+        days_from_last_update = self.compare_dates(self.last_updated_data)
+        days_from_creation = self.compare_dates(self.last_updated_data)
+
         return {
             "id": self.page_id,
             "page_title": self.page_title,
             "page_level": self.page_level,
             "last_updated_user": self.last_updated_user,
             "last_updated_date": self.last_updated_data,
-            "days_from_last_update": self.compare_dates(self.last_updated_data),
-            "days_from_creation": self.compare_dates(self.last_updated_data),
+            "days_from_last_update": days_from_last_update,
+            "days_from_creation": days_from_creation,
             "create_date": self.create_data,
             "create_user": self.create_user,
             "labels": self.labels,
-            "color": "#FFFAE2",
-            "page_link": f"{env['URL_ROOT']}/engineering/pages/{self.page_id}",
+            "color": self.categorize(days_from_last_update.days),
+            "page_link": f"{env['URL_ROOT']}spaces/engineering/pages/{self.page_id}",
         }
