@@ -2,3 +2,4 @@ confluence_data_freshness/confluence_data_freshness/settings.py
 confluence_data_freshness/confluence_data_retriever/.env
 **/__pycache__/*
 confluence_data_freshness/db.sqlite3
+.vscode/settings.json
