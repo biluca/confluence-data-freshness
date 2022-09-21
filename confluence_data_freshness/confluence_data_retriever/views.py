@@ -1,18 +1,20 @@
 import re
 
-from .confluence.service.confluence_api import ConfluenceAPI
-from django.http import HttpResponse
 from django.views import generic
 from django.shortcuts import redirect, render
 
-def children(request, hud_page_id):
+from .confluence.extractor import Extractor
+
+def children(request, hub_page_id):
     template_name = 'confluence_data_retriever/children.html'
 
-    confluence_api = ConfluenceAPI()
-    response = confluence_api.get_child(hud_page_id)
-    children_list = response['results']
+    extractor = Extractor()
+    extractor.append_hub_page(hub_page_id, 0)
+    extractor.append_children_pages(hub_page_id, 1)
 
-    return render(request, template_name, {'children_list': children_list})
+    all_pages = extractor.get_all_pages()
+
+    return render(request, template_name, {'all_pages': all_pages})
         
 
 class SearchView(generic.TemplateView):

@@ -1,19 +1,34 @@
 {% extends 'confluence_data_retriever/base.html' %}
-{% block title %}Children Display{% endblock %}
+{% block title %}Freshness Report{% endblock %}
 {% block content %}
 <table class="styled-table">
     <thead>
         <tr>
             <th>#ID</th>
+            <th>Level</th>
             <th>Page</th>
+            <th>Creation User</th>
+            <th>Last Update User</th>
+            <th>Days since Last Update</th>
+            <th>Days since Creation</th>
+            <th>Creation Date</th>
+            <th>Last Update Date</th>
+            <th>Labels</th>
         </tr>
     </thead>
     <tbody>
-        {% for child in children_list %}
-        <tr>
-            <td><a target="_blank" href="https://loadsmart.atlassian.net/wiki/spaces/engineering/pages/{{ child.id }}">
-                    {{ child.id }}</a> </td>
-            <td>{{ child.title }}</td>
+        {% for page in all_pages %}
+        <tr bgcolor="{{ page.color }}">
+            <td><a target="_blank" href="{{ page.page_link }}">{{ page.id }}</a></td>
+            <td>{{ page.page_level }}</td>
+            <td>{{ page.page_title }}</td>
+            <td>{{ page.create_user }}</td>
+            <td>{{ page.last_updated_user }}</td>
+            <td >{{ page.days_from_last_update }}</td>
+            <td>{{ page.days_from_creation }}</td>
+            <td>{{ page.create_date }}</td>
+            <td>{{ page.last_updated_date }}</td>
+            <td>{{ page.labels }}</td>
         </tr>
         {% endfor %}
     </tbody>

@@ -34,3 +34,7 @@
     font-weight: bold;
     color: #009879;
 }
+
+.warning-value{
+    background-color: #f0f !important;
+}
