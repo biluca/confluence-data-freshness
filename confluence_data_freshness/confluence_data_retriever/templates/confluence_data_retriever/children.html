@@ -1,9 +1,49 @@
 {% extends 'confluence_data_retriever/base.html' %}
 {% block title %}Freshness Report{% endblock %}
 {% block content %}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+        crossorigin="anonymous">
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+function download(){
+    var yourArray = []
+    $("input:checkbox[name=item_table]:checked").each(function(){
+        yourArray.push($(this).val());
+    });
+    if(yourArray.length === 0){
+        $("input:checkbox[name=item_table]").each(function(){
+            yourArray.push($(this).val());
+        });
+    }
+    console.log(yourArray)
+    const options = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'X-CSRFToken': 'aaaaaa'},
+        body: `[${yourArray}]`
+    }
+      
+      fetch('http://127.0.0.1:8000/cdr/get_csv', options)
+        .then((res) => res.blob())
+        .then((blob) => URL.createObjectURL(blob))
+        .then((href) => {
+            Object.assign(document.createElement('a'), {
+            href,
+            download: 'filename.csv',
+            }).click()})
+        .catch(err => console.error(err));
+    
+}
+</script>
+{% csrf_token %}
+<button class="btn" style="width:10%" onclick="download()"><i class="fa fa-download"></i> Download</button>
 <table class="styled-table">
     <thead>
         <tr>
+            <th><input type=checkbox
+                onclick="[...closest('table').querySelectorAll('tbody [type=checkbox]')].forEach(box=>box.checked=checked)">
+            </th>
             <th>#ID</th>
             <th>Level</th>
             <th>Page</th>
@@ -19,6 +59,7 @@
     <tbody>
         {% for page in all_pages %}
         <tr bgcolor="{{ page.color }}">
+            <td><input type="checkbox" name="item_table" value="{{page}}"/></td>
             <td><a target="_blank" href="{{ page.page_link }}">{{ page.id }}</a></td>
             <td>{{ page.page_level }}</td>
             <td>{{ page.page_title }}</td>
