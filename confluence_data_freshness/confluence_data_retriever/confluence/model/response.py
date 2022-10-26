@@ -31,7 +31,7 @@ class ConfluenceResponse:
         start_date = datetime.strptime(date.split("T")[0], "%Y-%m-%d")
         end_date = datetime.strptime(str(datetime.now().date()), "%Y-%m-%d")
         delta = end_date - start_date
-        return delta
+        return delta.days
 
     def categorize(self, days):
         if days > 60:
@@ -56,6 +56,6 @@ class ConfluenceResponse:
             "create_date": self.create_data,
             "create_user": self.create_user,
             "labels": self.labels,
-            "color": self.categorize(days_from_last_update.days),
+            "color": self.categorize(days_from_last_update),
             "page_link": f"{env['URL_ROOT']}spaces/engineering/pages/{self.page_id}",
         }
