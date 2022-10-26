@@ -47,7 +47,7 @@
 }
 
 .btn {
-  background-color: DodgerBlue;
+  background-color: #33CC60;
   border: none;
   color: white;
   padding: 10px;
@@ -57,5 +57,5 @@
 
 /* Darker background on mouse-over */
 .btn:hover {
-  background-color: RoyalBlue;
+  background-color: #00DB8F;
 }
