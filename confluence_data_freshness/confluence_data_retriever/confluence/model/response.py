@@ -43,7 +43,7 @@ class ConfluenceResponse:
     def create_dict(self):
 
         days_from_last_update = self.compare_dates(self.last_updated_data)
-        days_from_creation = self.compare_dates(self.last_updated_data)
+        days_from_creation = self.compare_dates(self.create_data)
 
         return {
             "id": self.page_id,

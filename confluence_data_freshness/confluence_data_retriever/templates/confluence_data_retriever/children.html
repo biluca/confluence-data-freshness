@@ -30,14 +30,14 @@ function download(){
         .then((href) => {
             Object.assign(document.createElement('a'), {
             href,
-            download: 'filename.csv',
+            download: 'confluence_pages.csv',
             }).click()})
         .catch(err => console.error(err));
     
 }
 </script>
 {% csrf_token %}
-<button class="btn" style="width:10%" onclick="download()"><i class="fa fa-download"></i> Download</button>
+<button class="btn" style="width:10%" onclick="download()"><i class="fa fa-download"></i> Download CSV</button>
 <table class="styled-table">
     <thead>
         <tr>
